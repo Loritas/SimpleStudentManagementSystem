@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include<stdbool.h>
 
-int main()
-{
-    typedef struct score
+
+ typedef struct score
     {
         int score1;
         int score2;
@@ -12,7 +11,7 @@ int main()
         int score4;
         int score5;
     }score;
-    typedef struct student
+typedef struct student
     {
         int *class;
         int number;
@@ -24,7 +23,7 @@ int main()
         bool test;
         score sco;
     }stu;
-    typedef struct teacher
+typedef struct teacher
     {
         int project;
         struct teancher *teach;
@@ -33,4 +32,7 @@ int main()
         int phonenumber;
         char email[30];
     }teacher;
+main()
+{
+    
 }
