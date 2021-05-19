@@ -15,13 +15,13 @@
  */
 #ifndef GRADE_H
 #define GRADE_H
-#include "service/serviceHead/setting.h"
+
 
 typedef struct grade{
     char uid[24];
-    int grade_number;
+    char grade_number[5];
     int class_total;
-    float *subject_aver[5][1];
+    float subject_aver[5][1];
     float general_aver_score;
     float general_aver_gpa;
     enum BOOLEAN_USE HAS_CLASSES_INPUT;
@@ -29,7 +29,7 @@ typedef struct grade{
 }grade, *grade_p;
 
 typedef struct grade_head_pointer{
+    enum BOOLEAN_USE isHead;
     struct grade *next;
 }grade_head_pointer, *grade_head_p;
-
 #endif //_GRADE_H

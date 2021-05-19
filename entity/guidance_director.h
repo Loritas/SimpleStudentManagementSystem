@@ -22,7 +22,8 @@ typedef struct guidance_director{
 }director, *director_p;
 
 typedef struct guidance_director_head_pointer{
-    struct director *next;
+    enum BOOLEAN_USE isHead;
+    struct guidance_director *next;
 }director_head_pointer, *director_head_p;
 
 #endif //_GUIDANCE_DIRECTOR_H
