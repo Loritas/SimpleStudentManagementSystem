@@ -19,6 +19,7 @@
 #include "serviceHead/grade_service.h"
 grade_head_p initial_Grade_List(){
     grade_head_p head_point = (grade_head_p)malloc(sizeof(grade_head));
+
     if (head_point == NULL)
     {
         printf("Warning: Your computer has not enough free memory,\n");
@@ -49,7 +50,9 @@ grade_p create_grade(grade_head_p head,enum BOOLEAN_USE HAS_MAX_CLASSES_INPUT){
         return NULL;
     }
     grade_p  temp_grade = head->next;
+
     grade_p new_grade = (grade_p)malloc(sizeof(grade));
+
     if (new_grade == NULL)
     {
         printf("Warning: Your computer has not enough free memory,");
@@ -57,7 +60,9 @@ grade_p create_grade(grade_head_p head,enum BOOLEAN_USE HAS_MAX_CLASSES_INPUT){
         return NULL;
     }
     new_grade->next = NULL;
-    new_grade = set_grade(new_grade, head,HAS_CLASSES_INPUT);
+
+    new_grade = set_grade(new_grade, head, HAS_CLASSES_INPUT);
+
     while(temp_grade->next != NULL){
         temp_grade = temp_grade->next;
     }
@@ -66,124 +71,158 @@ grade_p create_grade(grade_head_p head,enum BOOLEAN_USE HAS_MAX_CLASSES_INPUT){
     printf("That's alright.Returning to the main menu\n");
     return new_grade;
 }
-grade_p set_grade(grade_p grade, grade_head_p head,enum BOOLEAN_USE HAS_CLASSES_INPUT){
+grade_p set_grade(grade_p grade, grade_head_p head){
     char grade_number[4];
     char *quantity = grade_number;
+
     char class_total[10];
     char *class_amount = class_total;
+
     char grade_uid[24];
     char *uid = grade_uid;
-    if (HAS_CLASSES_INPUT == FALSE_RES)
-    {
-        printf("There is no class.You must create one at first \nAnd your character must be an administrator.\nPress any key to continue.");
+
+        printf("There is no grade.You must create one at first \nAnd your character must be an administrator.\nPress any key to continue.\n");
         getchar();
+
         printf("Please input the grade number.It should be a four-digit-number.\n");
         fgets(quantity, 4, stdin);
         fflush(stdin);
-        strcmp(grade->grade_number,grade_number) ;
-        printf("Please input the classes' amounts of the grade.");
+
+        while (true)
+        {
+            if(strlen(grade_number) == 4 && atol(grade_number) > 0) {
+                grade->grade_number = atol(grade_number);
+                printf("Ok. There's nothing wrong with your grade number.\n");
+                break;
+            } else{
+                printf("The grade number you enter must be a four-digit-number and positive number. \nPlease enter again!");
+                fgets(quantity, 4, stdin);
+                fflush(stdin);
+            }
+        }
+
+        printf("Please input the classes' amounts of the grade.\n");
         fgets(class_amount, 10, stdin);
         fflush(stdin);
-        grade->class_total = atol(class_total);
-        printf("Press any key to create the uid")
-        getchar();
+        while (true){
+            if(atol(class_total) > 0){
+                grade->class_total = atol(class_total);
+                printf("Ok. There's nothing wrong with classes' amounts.\n");
+                break;
+            }else{
+                printf("The classes' amounts of the grade must be positive number. \nPlease enter again! ");
+                gets(class_amount, 10, stdin);
+                fflush(stdin);
+            }
+        }
+
         create_uid(char *uid);
         strcpy(grade->uid, grade_uid);
     }
     return grade;
 }
-void update_grade (grade_p p)
+void update_grade (grade_head_p head)
 {
     char update_number[5];
-    char *quantity = update_number;
+    char *get_number = update_number;
+
     char update_temp[5];
     char *temp = update_temp;
+
+    char class_total[10];
+    char *get_class = class_total;
+
     int judge = 0;
     printf("Please input the number of the grade you want to change");
-    fgets(quantity, 4, stdin);
+    fgets(get_number, 4, stdin);
     fflush(stdin);
-    grade_p pr = p->next;
-    while (pr != NULL) {
+    while (true){
+        if(atol(update_number) > 0 && strlen(update_number) == 4){
+            printf("Enter successfully\nPlease press any key to continue\n");
+            getchar();
+            break;
+        }else{
+            printf("The number you input must be a four-digit and positive number. \nPlease enter again! ");
+            gets(get_number, 10, stdin);
+            fflush(stdin);
+        }
+    }
+
+    grade_p temp_grade = head->next;
+
+    while (temp_grade != NULL) {
         judge = 1;
-        if (0 == strcmp(pr->grade_number, update_number)) {
+        if (temp_grade->grade_number == atol(update_number)) {
+            printf("Please enter the number you want to replace the old one.");
             fgets(temp, 4, stdin);
             fflush(stdin);
-            strcpy(pr->grade_number, update_temp);
+            while (true){
+                if(atol(update_number) > 0 && strlen(update_number) == 4){
+                    printf("Enter successfully\nPlease press any key to continue\n");
+                    getchar();
+                    break;
+                }else{
+                    printf("The number you input must be a four-digit and positive number. \nPlease enter again! ");
+                    gets(get_number, 10, stdin);
+                    fflush(stdin);
+                }
+            }
+
+            temp_grade->grade_number = atol(update_temp);
             printf("Change successfully!");
         }
-        pr = pr->next;
+
+        temp_grade = temp_grade->next;
     }
+
         if(judge == 0)
         {
             printf("The grade you input hasn't existed!");
         }
 }
-void delete_grade(grade_p p){
-    grade_p pr,pre;
+void delete_grade(grade_head_p head){
+    grade_p temp_grade, del_grade;
     int judge = 0;
     char grade_number[5];
-    char *number = grade_number;
-    printf("Please input the number of the grade you want to delete");
-    fgets(number,4,stdin);
-    fflush(stdin);
-    if(p->next == NULL)
+    char *get_number = grade_number;
+
+    if(head->next == NULL)
     {
         printf("Error! There isn't any grade to delete!");
         return;
     }
-    pre = p;
-    pr = pre->next;
-    while(pr)
+    temp_grade = head->next;
+    del_grade = temp_grade;
+
+    printf("Please input the number of the grade you want to delete");
+    fgets(get_number,4,stdin);
+    fflush(stdin);
+    while (true)
     {
-        if (0 == strcmp(pr->grade_number, grade_number))
+        if(strlen(grade_number) == 4 && atol(grade_number) > 0) {
+            printf("Ok. There's nothing wrong with your input the program will continue soon.\n");
+            break;
+        } else{
+            printf("The grade number you enter must be a four-digit-number and positive number. \nPlease enter again!");
+            fgets(quantity, 4, stdin);
+            fflush(stdin);
+        }
+    }
+
+    while(del_grade)
+    {
+        if (del_grade->grade_number == atol(grade_number))
         {
             judge = 1;
-            pre->next = pr->next;
-            free(pr);
+            temp_grade = del_grade->next;
+            free(del_grade);
             printf("Delete successfully!");
             break;
         }
-        pre = pr;
-        pr = pr->next;
+        temp_grade = del_grade;
+        del_grade = del_grade->next;
     }
     if (judge == 0)
         printf("The grade you input hasn't existed! ")
 }
-void add_grade(grade_p p){
-    char grade_number[5];
-    char *number=grade_number;
-    char class_total[10];
-    char *class_amount = class_total;
-    grade_p q = p->next;
-    printf("Please enter the grade number you want to add.");
-    fgets(number,4,stdin);
-    fflush(stdin);
-    while (q != NULL)
-    {
-        if(0 == strcmp(q->grade_number,grade_number))
-        {
-            printf("The grade you enter has existed");
-            break;
-        }
-        q = q->next;
-    }
-    if(q == NULL)
-    {
-        grade_p pr;
-        grade_p pr = (grade_p)malloc(sizeof(grade));
-        strcmp(pr->grade_number, grade_number);
-        printf("Please enter the class amount of the grade");
-        fgets(class_amount,10,stdin);
-        fflush(stdin);
-        pr->class_total = atol(class_total);
-        grade_insert(grade_p p, grade_p pr);
-    }
 
-}
-void grade_insert(grade_p p,grade_p q)
-{
-    grade_p pr=NULL;
-    pr=p;
-    q->next=pr->next;
-    pr->next=q;
-}

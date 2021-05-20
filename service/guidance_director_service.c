@@ -41,100 +41,175 @@ director_p create_director(director_head_p head){
     }
 
     temp_director->next = new_director;
-    printf("That's alright.Returning to the menu\n");
+    printf("That's alright. Returning to the menu \n");
     return new_director;
 }
 director_p set_director(director_p director, director_head_p head){
     char name[10];
-    char *Name=name;
+    char *get_name = name;
+
     char work_number[10];
-    char *number=work_number;
+    char *get_number = work_number;
+
     char email[10];
-    char *Email=email;
+    char *get_email = email;
+
     char cell_phone[10];
     char *phone_number = cell_phone;
+
     char my_uid[24];
     char *uid = my_uid;
-    printf("Please enter your name");
-    fgets(Name,10,stdin);
-    fflush(stdin);
-    strcpy(director->name,name);
+
+    printf("Please enter your name \n");
+    while (true) {
+        fgets(get_name, 10, stdin);
+        fflush(stdin);
+        int i ;
+        printf("Please press enter.");
+        scanf("%d",&i);
+        if{
+            i = 13;
+            strcpy(director->name, name);
+            break;
+        }
+    }
+
     printf("Please enter your work number");
-    fgets(number,10,stdin);
+    fgets(get_number, 10, stdin);
     fflush(stdin);
-    director->work_number=atol(work_number);
+    while (true){
+        if(strlen(work_number) == 9){
+            printf("Enter successfully\n Please press any key to continue\n");
+            getchar();
+            break;
+        }else{
+            printf("The number you input must be a 9-digit number. \nPlease enter again! ");
+            gets(get_number, 10, stdin);
+            fflush(stdin);
+        }
+    }
+    director->work_number = atol(work_number);
+
     printf("Please enter your email");
     fgets(Email,10,stdin);
     fflush(stdin);
-    strcpy(director->email,email);
+    strcpy(director->email, email);
+
     printf("Please enter your cell-phone number");
     fgets(phone_number,10,stdin);
     fflush(stdin);
-    strcpy(director->phone_number,cell_phone);
-    printf("Press any key to create the uid");
-    getchar();
+    while (true){
+        if(strlen(cell_phone) == 9){
+            printf("Enter successfully\n Please press any key to continue\n");
+            getchar();
+            break;
+        }else{
+            printf("The number you input must be a 9-digit number. \nPlease enter again! ");
+            fgets(phone_number, 10, stdin);
+            fflush(stdin);
+        }
+    }
+    strcpy(director->phone_number, cell_phone);
+
     create_uid(char *uid);
-    strcpy(director->uid,my_uid);
+    strcpy(director->uid, my_uid);
     return director;
 }
-void query_my_own_data(director_p director){
-    director_p q = director->next;
+void query_my_own_data(director_head_p head){
+    director_p data = head->next;
     char name[10];
-    char *Name=name;
-    fgets(Name,10,stdin);
-    fflush(stdin);
-    while(q != NULL)
-    {
-        if(strcmp(q->name,name) == 0) {
-            printf("Name: %s", q->name);
-            printf("Work number: %ld", q->work_number);
-            printf("Phone number: %s", q->phone_number);
-            printf("Email: %s", q->email);
+    char *get_name = name;
+
+    printf("Please enter your name");
+    while (true) {
+        fgets(get_name, 10, stdin);
+        fflush(stdin);
+        int i ;
+        printf("Please press enter.");
+        scanf("%d",&i);
+        if{
+            i = 13;
+            strcpy(data->name, name);
+            break;
         }
-        q = q->next;
     }
-    if(q == NULL)
+
+    while(data != NULL)
+    {
+        if(strcmp(data->name, name) == 0) {
+            printf("Name: %s", data->name);
+            printf("Work number: %ld", data->work_number);
+            printf("Phone number: %s", data->phone_number);
+            printf("Email: %s", data->email);
+        }
+        data = data->next;
+    }
+    if(data == NULL)
         printf("The message you query hasn't existed");
 }
-void update_my_own_data(director_p director){
-    director_p q = director->next;
+void update_my_own_data(director_head_p head){
+    director_p data = head->next;
     char name[10];
-    char *Name=name;
+    char *get_name = name;
+
     char email[10];
-    char *Email=email;
+    char *get_email = email;
+
     char cell_phone[10];
     char *phone_number = cell_phone;
+
     int choose;
-    fgets(Name,10,stdin);
+    fgets(get_name,10,stdin);
     fflush(stdin);
-    while(q != NULL){
-        if(strcmp(q->name,name) == 0)
+    while(data != NULL){
+        if(strcmp(data->name, name) == 0)
         {
-            printf("Which message do you want to update?");
-            printf("1.Email      2.Phone number");
-            printf("3.Name");
-            printf("Press any serial to continue");
-            scanf("%d",&choose);
+            printf("Which message do you want to update?\n");
+            printf("1.Email      2.Phone number\n");
+            printf("3.Name\n");
+            printf("Press any serial to continue\n");
+
+            scanf("%d", &choose);
             switch (choose) {
                 case 1:
                     printf("Please input your new email");
                     fgets(Email,10,stdin);
                     fflush(stdin);
-                    strcpy(q->email,email);
+                    strcpy(data->email, email);
                     printf("Update successfully");
                     break;
                 case 2:
                     printf("Please input your new Phone number");
                     fgets(phone_number,10,stdin);
                     fflush(stdin);
-                    strcpy(q->phone_number,cell_phone);
+                    while (true){
+                        if(strlen(cell_phone) == 9){
+                            printf("Enter successfully\n Please press any key to continue\n");
+                            getchar();
+                            break;
+                        }else{
+                            printf("The number you input must be a 9-digit number. \nPlease enter again! ");
+                            fgets(phone_number, 10, stdin);
+                            fflush(stdin);
+                        }
+                    }
+                    strcpy(data->phone_number, cell_phone);
                     printf("Update successfully");
                     break;
                 case 3:
                     printf("Please input your new name");
-                    fgets(Name,10,stdin);
-                    fflush(stdin);
-                    strcpy(q->name,name);
+                    while (true) {
+                        fgets(get_name, 10, stdin);
+                        fflush(stdin);
+                        int i ;
+                        printf("Please press enter.");
+                        scanf("%d",&i);
+                        if{
+                            i = 13;
+                            strcpy(data->name, name);
+                            break;
+                        }
+                    }
                     printf("Update successfully");
                     break;
                 default:
@@ -143,48 +218,50 @@ void update_my_own_data(director_p director){
             }
         }
     }
-    if(q == NULL)
+    if(data == NULL)
         printf("The message you want to update hasn't existed!");
 }
-void query_single_grade(grade_p grade){
-    grade_p q = grade->next;
-    int judge=0;
+void query_single_grade(grade_head_p head){
+    grade_p grade = head->next;
+    int judge = 0;
     char grade_number[5];
-    char *number=grade_number;
-    fgets(number,4,stdin);
+    char *get_number = grade_number;
+
+    fgets(get_number,4,stdin);
     fflush(stdin);
-    while (q != NULL)
+    while (grade != NULL)
     {
-        if(strcmp(grade_number,q->grade_nmuber) == 0)
+        if(strcmp(grade_number, grade->grade_nmuber) == 0)
         {
-            judge=1;
-            printf("The class amount :%s",q->grade_number);
-            for(int i = 0;i < 5;i++) {
-                printf("The %d aver :%f",i, q->subject_aver[i][0]);
+            judge = 1;
+            printf("The class amount :%d", grade->class_total);
+            for(int i = 0; i < 5; i++) {
+                printf("The %d aver :%f", i, grade->subject_aver[i][0]);
             }
-            printf("The general_aver_score :%f",q->general_aver_score);
-            printf("The general_aver_gpa :%f",q->general_aver_gpa);
+            printf("The general_aver_score :%f", grade->general_aver_score);
+            printf("The general_aver_gpa :%f", grade->general_aver_gpa);
         }
+        grade = grade->next;
     }
     if(judge == 0)
         printf("The grade you query hasn't existed");
 }
-void query_all_grades(grade_p grade){
-    grade_p q = grade->next;
-    if(q == NULL)
+void query_all_grades(grade_head_p head){
+    grade_p grade = head->next;
+    if(grade == NULL)
     {
         printf("There isn't any grade to query!");
         return;
     }
-    while (q)
+    while (grade)
     {
-            printf("The class amount :%s",q->grade_number);
+            printf("The class amount :%d", grade->class_total);
             for(int i = 0;i < 5;i++) {
-                printf("The %d aver :%f",i, q->subject_aver[i][0]);
+                printf("The %d aver :%f",i, grade->subject_aver[i][0]);
             }
-            printf("The general_aver_score :%f",q->general_aver_score);
-            printf("The general_aver_gpa :%f",q->general_aver_gpa);
-            q = q->next;
+            printf("The general_aver_score :%f", grade->general_aver_score);
+            printf("The general_aver_gpa :%f", grade->general_aver_gpa);
+            grade = grade->next;
     }
 }
 

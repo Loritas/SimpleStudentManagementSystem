@@ -11,10 +11,10 @@
 #include "utils/tool.h"
 #include "entity/guidance_director.h"
 #include "entity/grade.h"
-#endif //_GUIDANCE_DIRECTOR_SERVICE_H
 director_head_p initial_Director_List();
 director_p create_director(director_head_p head);
 void query_my_own_data(director_p director);
 void update_my_own_data(director_p director);
-void query_single_grade(grade_p grade);
-void query_all_grades(grade_p grade);
+void query_single_grade(grade_head_p head);
+void query_all_grades(grade_head_p head);
+#endif //_GUIDANCE_DIRECTOR_SERVICE_H

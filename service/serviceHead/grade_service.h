@@ -13,9 +13,7 @@
 #include "entity/grade.h"
 grade_head_p initial_Grade_List();
 grade_p create_grade( grade_head_p head,enum BOOLEAN_USE HAS_CLASSES_INPUT);
-grade_p set_grade(grade_p grade, grade_head_p head,enum BOOLEAN_USE HAS_CLASSES_INPUT);
-void update_grade (grade_p p);
-void delete_grade(grade_p p);
-void add_grade(grade_p p);
-void grade_insert(grade_p p,grade_p q);
+grade_p set_grade(grade_p grade, grade_head_p head);
+void update_grade (grade_head_p head);
+void delete_grade(grade_head_p head);
 #endif //CLASSDESIGN1_GRADE_SERVICE_H

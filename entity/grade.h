@@ -19,7 +19,7 @@
 
 typedef struct grade{
     char uid[24];
-    char grade_number[5];
+    int grade_number;
     int class_total;
     float subject_aver[5][1];
     float general_aver_score;

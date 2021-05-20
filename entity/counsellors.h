@@ -25,6 +25,7 @@ typedef struct counsellors{
 }counsellors, *counsellor_p;
 
 typedef struct counsellors_head_pointer{
+    enum BOOLEAN_USE isHead;
     struct counsellors *next;
 }counsellors_head_pointer, *counsellor_head_p;
 

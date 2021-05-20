@@ -361,7 +361,7 @@ enum OPERATE delete_user(users_head_p head, USER current_user){
             }
 
             if (temp_for_check == NULL){
-                printf("The account is not exist yet, please check the target account!\n");
+                printf("The account has not existed yet, please check the target account!\n");
                 printf("Target account:");
                 temp_for_check = head->next;
                 fgets(user_account, 11, stdin);

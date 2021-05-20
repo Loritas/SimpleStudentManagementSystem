@@ -85,7 +85,6 @@ void create_uid(char *target_uid){
     // random generation of eight digits (with a tendency to increase)
     srand(time(NULL));
     long temp_number = 10000000 + rand() % 90000000;
-
     char temp[9];
     ltoa(temp_number, temp, 10);
     strcat(target_uid, temp);

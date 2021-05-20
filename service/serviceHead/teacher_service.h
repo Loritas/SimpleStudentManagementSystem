@@ -15,5 +15,5 @@
 teache_head_p initial_Teacher_List();
 teacher_p create_teacher(teach_head_p head,enum BOOLEAN_USE HAS_MAX_CLASSES);
 teacher_p set_teacher(teacher_p teacher, teach_head_p head);
-void query_class();
+void query_single_class(teacher_p teacher, class_head_p head);
 #endif //_TEACHER_SERVICE_H

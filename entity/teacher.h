@@ -32,6 +32,7 @@ typedef struct teacher
 }teacher, *teacher_p;
 
 typedef struct teacher_head_pointer{
+    enum BOOLEAN_USE isHead;
     struct teacher *next;
 }teacher_head_p, *teach_head_p;
 
