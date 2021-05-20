@@ -15,8 +15,7 @@
  */
 #ifndef GRADE_H
 #define GRADE_H
-
-
+#include "serviceHead/setting.h"
 typedef struct grade{
     char uid[24];
     int grade_number;
